@@ -26,7 +26,9 @@ g <- ggplot(desiredDataset, aes(Year, x, color = Type))
 g <- g + geom_line() +
     xlab("Years") +
     ylab(expression('Total PM'[2.5]*" Emissions (Tons)")) +
-    ggtitle('Total Emissions in Baltimore City, Maryland from 1999 to 2008')
+    ggtitle('Total Emissions in Baltimore City, Maryland from 1999 to 2008')+
+    geom_point()+
+    geom_text(aes(label=round(x,2),hjust=0,vjust=0))
 print(g)
 dev.copy(png,file="plot3.png", width=480,height=480)
 dev.off()

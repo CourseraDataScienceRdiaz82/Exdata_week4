@@ -18,15 +18,19 @@ if (!exists("rawDataset")||!exists("classificationCodes")){
 }
 
 #Calculate the total pollution emission
-desiredCodes<-subset(classificationCodes,grepl("[Cc]oal",classificationCodes$Short.Name))
+desiredCodes<-subset(classificationCodes,grepl("Fuel Comb.*Coal",classificationCodes$EI.Sector))
 desiredDataset<-rawDataset[rawDataset$SCC %in% desiredCodes$SCC,]
 desiredDataset<-aggregate(desiredDataset$Emissions, by=list(Year=desiredDataset$year), FUN=sum)
 
 #Generate a bar plot with the required information
-barplot(desiredDataset[,2],names.arg = desiredDataset[,1],
+finalPlot<-barplot(desiredDataset[,2],names.arg = desiredDataset[,1],
         main=expression(paste("Total Emission", PM[2.5], " between 1999 to 2008 in USAL (Coal sources)")),
         xlab="Year",
         ylab=expression(paste("Total Emission ", PM[2.5], " (Tons)")),
-        col="skyblue")
+        col="skyblue",
+        ylim=range(0,7*10^5))
+text(x = finalPlot, y = round(desiredDataset$x,2), label = round(desiredDataset$x,2), pos = 3, cex = 0.8, col = "black")
+grid()
+
 dev.copy(png,file="plot4.png", width=480,height=480)
 dev.off()

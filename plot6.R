@@ -22,15 +22,13 @@ desiredDataset<-subset(rawDataset,rawDataset$fips=="24510" & rawDataset$type=="O
 desiredDataset<-aggregate(desiredDataset$Emissions, by=list(Year=desiredDataset$year), FUN=sum)
 
 #Generate a bar plot with the required information
-barplot(desiredDataset[,2],names.arg = desiredDataset[,1],
-        main=expression(paste("Total Emission", PM[2.5], " from 1999 to 2008 in Baltimore (Motor Vehicles)")),
+finalPlot<-barplot(desiredDataset[,2],names.arg = desiredDataset[,1],
+        main=expression(paste("Total Emission", PM[2.5], " between 1999 to 2008 in Baltimore (On roadsvo)")),
         xlab="Year",
         ylab=expression(paste("Total Emission ", PM[2.5], " (Tons)")),
-        col="skyblue",
-        ylim=range(0,400))
-text(x = finalPlot, y = round(desiredDataset$x,2), label = round(desiredDataset$x,2), pos = 3, cex = 0.8, col = "black")
+        col="skyblue")
 grid()
-
+text(x = finalPlot, y = round(desiredDataset$x,2), label = round(desiredDataset$x,2), pos = 3, cex = 0.8, col = "black")
 
 dev.copy(png,file="plot5.png", width=480,height=480)
 dev.off()
