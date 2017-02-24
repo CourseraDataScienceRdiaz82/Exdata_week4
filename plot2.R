@@ -17,15 +17,16 @@ if (!exists("rawDataset")||!exists("classificationCodes")){
 }
 
 #Calculate the total pollution emission
-plot1<-aggregate(rawDataset$Emissions, by=list(Year=rawDataset$year), FUN=sum)
+plot2<-subset(rawDataset,rawDataset$fips=="24510")
+plot2<-aggregate(plot2$Emissions, by=list(Year=plot2$year), FUN=sum)
 
 #Generate a bar plot with the required information
-barplot(plot1[,2],names.arg = plot1[,1],
-        main=expression(paste("Emissions from ", PM[2.5], " in the United States from 1999 to 2008")),
+barplot(plot2[,2],names.arg = plot2[,1],
+        main=expression(paste("Emissions from ", PM[2.5], " in Baltimore City from 1999 to 2008")),
         xlab="Year",
         ylab=expression(paste("Total Emission ", PM[2.5], " (Tons)")),
         col="skyblue")
 
 #Save the plot to a file
-dev.copy(png,file="plot1.png", width=480,height=480)
+dev.copy(png,file="plot2.png", width=480,height=480)
 dev.off()

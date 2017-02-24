@@ -2,7 +2,8 @@
 Source_Classification_Code.rds
 summarySCC_PM25.rds
 
-# History files
+.DS_Store
+
 .Rhistory
 .Rapp.history
 
